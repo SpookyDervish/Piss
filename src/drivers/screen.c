@@ -6,7 +6,7 @@
 
 void init_console(struct limine_framebuffer *framebuffer) {
 	// load all our framebuffer data into the ssfn_dst data idk
-	ssfn_src = &_binary_console_sfn_start; // TODO: link this somehow
+	//ssfn_src = &_binary_console_sfn_start; // TODO: link this somehow
 	ssfn_dst.ptr = framebuffer->address;
 	ssfn_dst.p = framebuffer->pitch;
 	ssfn_dst.w = framebuffer->width;

@@ -100,7 +100,7 @@ override ASSETFILES := $(shell find -L assets -type f 2>/dev/null | LC_ALL=C sor
 override CFILES := $(filter %.c,$(SRCFILES))
 override ASFILES := $(filter %.S,$(SRCFILES))
 override NASMFILES := $(filter %.asm,$(SRCFILES))
-override OBJ := $(addprefix obj/,$(CFILES:.c=.c.o) $(ASFILES:.S=.S.o) $(NASMFILES:.asm=.asm.o) $(ASSETFILES:.psf=.o))
+override OBJ := $(addprefix obj/,$(CFILES:.c=.c.o) $(ASFILES:.S=.S.o) $(NASMFILES:.asm=.asm.o) $(ASSETFILES:.psf=.psf.o))
 override HEADER_DEPS := $(addprefix obj/,$(CFILES:.c=.c.d) $(ASFILES:.S=.S.d))
 
 # Default target. This must come first, before header dependencies.
@@ -131,6 +131,10 @@ obj/%.asm.o: %.asm GNUmakefile
 	nasm $(NASMFLAGS) $< -o $@
 
 obj/%.psf.o: assets/%.psf
+	mkdir -p "$$(dirname $@)"
+	objcopy -O elf64-x86-64 -B i386 -I binary $< $@
+
+obj/assets/%.psf.o: assets/%.psf
 	mkdir -p "$$(dirname $@)"
 	objcopy -O elf64-x86-64 -B i386 -I binary $< $@
 
