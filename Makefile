@@ -10,16 +10,16 @@ override OUTPUT := piss
 TOOLCHAIN :=
 TOOLCHAIN_PREFIX :=
 ifneq ($(TOOLCHAIN),)
-    ifeq ($(TOOLCHAIN_PREFIX),)
-        TOOLCHAIN_PREFIX := $(TOOLCHAIN)-
-    endif
+	ifeq ($(TOOLCHAIN_PREFIX),)
+		TOOLCHAIN_PREFIX := $(TOOLCHAIN)-
+	endif
 endif
 
 # User controllable C compiler command.
 ifneq ($(TOOLCHAIN_PREFIX),)
-    CC := $(TOOLCHAIN_PREFIX)gcc
+	CC := $(TOOLCHAIN_PREFIX)gcc
 else
-    CC := cc
+	CC := cc
 endif
 
 # User controllable linker command.
@@ -27,8 +27,8 @@ LD := $(TOOLCHAIN_PREFIX)ld
 
 # Defaults overrides for variables if using "llvm" as toolchain.
 ifeq ($(TOOLCHAIN),llvm)
-    CC := clang
-    LD := ld.lld
+	CC := clang
+	LD := ld.lld
 endif
 
 # User controllable C flags.
@@ -48,50 +48,50 @@ override CC_IS_CLANG := $(shell ! $(CC) --version 2>/dev/null | grep -q '^Target
 
 # If the C compiler is Clang, set the target as needed.
 ifeq ($(CC_IS_CLANG),1)
-    override CC += \
-        -target x86_64-unknown-none-elf
+	override CC += \
+		-target x86_64-unknown-none-elf
 endif
 
 # Internal C flags that should not be changed by the user.
 override CFLAGS += \
-    -Wall \
-    -Wextra \
-    -std=gnu11 \
-    -ffreestanding \
-    -fno-stack-protector \
-    -fno-stack-check \
-    -fno-lto \
-    -fno-PIC \
-    -m64 \
-    -march=x86-64 \
-    -mno-80387 \
-    -mno-mmx \
-    -mno-sse \
-    -mno-sse2 \
-    -mno-red-zone \
-    -mcmodel=kernel
+	-Wall \
+	-Wextra \
+	-std=gnu11 \
+	-ffreestanding \
+	-fno-stack-protector \
+	-fno-stack-check \
+	-fno-lto \
+	-fno-PIC \
+	-m64 \
+	-march=x86-64 \
+	-mno-80387 \
+	-mno-mmx \
+	-mno-sse \
+	-mno-sse2 \
+	-mno-red-zone \
+	-mcmodel=kernel
 
 # Internal C preprocessor flags that should not be changed by the user.
 override CPPFLAGS := \
-    -I src \
-    $(CPPFLAGS) \
-    -DLIMINE_API_REVISION=3 \
-    -MMD \
-    -MP
+	-I src \
+	$(CPPFLAGS) \
+	-DLIMINE_API_REVISION=3 \
+	-MMD \
+	-MP
 
 # Internal nasm flags that should not be changed by the user.
 override NASMFLAGS := \
-    -f elf64 \
-    $(NASMFLAGS) \
-    -Wall
+	-f elf64 \
+	$(NASMFLAGS) \
+	-Wall
 
 # Internal linker flags that should not be changed by the user.
 override LDFLAGS += \
-    -m elf_x86_64 \
-    -nostdlib \
-    -static \
-    -z max-page-size=0x1000 \
-    -T linker.lds
+	-m elf_x86_64 \
+	-nostdlib \
+	-static \
+	-z max-page-size=0x1000 \
+	-T linker.lds
 
 # Use "find" to glob all *.c, *.S, and *.asm files in the tree and obtain the
 # object and header dependency file names.
@@ -131,8 +131,8 @@ obj/%.asm.o: %.asm GNUmakefile
 	nasm $(NASMFLAGS) $< -o $@
 
 obj/%.psf.o: assets/%.psf
-    mkdir -p "$$(dirname $@)"
-    objcopy -O elf64-x86-64 -B i386 -I binary $< $@
+	mkdir -p "$$(dirname $@)"
+	objcopy -O elf64-x86-64 -B i386 -I binary $< $@
 
 # Remove object files and the final executable.
 .PHONY: clean
