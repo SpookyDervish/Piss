@@ -4,7 +4,7 @@ MAKEFLAGS += -rR
 
 # This is the name that our final executable will have.
 # Change as needed.
-override OUTPUT := myos
+override OUTPUT := piss
 
 # User controllable toolchain and toolchain prefix.
 TOOLCHAIN :=
@@ -110,12 +110,12 @@ all: bin/$(OUTPUT)
 -include $(HEADER_DEPS)
 
 # Link rules for the final executable.
-bin/$(OUTPUT): GNUmakefile linker.lds $(OBJ)
+bin/$(OUTPUT): linker.lds $(OBJ)
 	mkdir -p "$$(dirname $@)"
 	$(LD) $(OBJ) $(LDFLAGS) -o $@
 
 # Compilation rules for *.c files.
-obj/%.c.o: %.c GNUmakefile
+obj/%.c.o: %.c
 	mkdir -p "$$(dirname $@)"
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
