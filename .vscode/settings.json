@@ -1,0 +1,11 @@
+{
+	"files.associations": {
+		"*.embeddedhtml": "html",
+		"*.spk": "code-text-binary",
+		"*.mem": "code-text-binary",
+		"limits.h": "c",
+		"stddef.h": "c",
+		"stdlib.h": "c",
+		"psf.h": "c"
+	}
+}

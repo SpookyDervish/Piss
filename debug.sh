@@ -1,0 +1,1 @@
+qemu-system-x86_64 -d int -no-reboot -no-shutdown image.hdd

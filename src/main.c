@@ -1,9 +1,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "gcc_methods.h"
-#include "drivers/screen.h"
 #include <limine.h>
+#include "drivers/psf.h"
 
 // quick note about all limine requests:
 // the requests should be defined as volatile to prevent the compiler
@@ -56,8 +55,12 @@ void kmain(void) {
 
     // Fetch the first framebuffer.
     struct limine_framebuffer *framebuffer = framebuffer_request.response->framebuffers[0];
-    init_console(framebuffer);
-    draw_char('H');
+    // Note: we assume the framebuffer model is RGB with 32-bit pixels.
+    for (size_t i = 0; i < framebuffer->width*framebuffer->height; i++) {
+        volatile uint32_t *fb_ptr = framebuffer->address;
+        fb_ptr[i] = i%256;
+    }
+    putc('h', framebuffer, 0xFFFFFF, 0xFFFFFF, 0, 0);
 
     // We're done, just hang...
     hcf();
