@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include "gcc_methods.h"
+#include "drivers/screen.h"
 #include <limine.h>
 
 // quick note about all limine requests:
@@ -55,6 +56,8 @@ void kmain(void) {
 
     // Fetch the first framebuffer.
     struct limine_framebuffer *framebuffer = framebuffer_request.response->framebuffers[0];
+    init_console(framebuffer);
+    draw_char('H');
 
     // We're done, just hang...
     hcf();

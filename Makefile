@@ -130,9 +130,9 @@ obj/%.asm.o: %.asm GNUmakefile
 	mkdir -p "$$(dirname $@)"
 	nasm $(NASMFLAGS) $< -o $@
 
-obj/assets/%.o: assets/%.psf
-	mkdir -p "$$(dirname $@)"
-	objcopy -O elf64-x86-64 -B i386 -I binary $< $@
+obj/%.psf.o: assets/%.psf
+    mkdir -p "$$(dirname $@)"
+    objcopy -O elf64-x86-64 -B i386 -I binary $< $@
 
 # Remove object files and the final executable.
 .PHONY: clean
