@@ -1,5 +1,5 @@
 # PISS
-- Personal
-- Intuitive
-- Shit
+- Proxgrammer's
+- Inexplicably
+- Shitty
 - System
