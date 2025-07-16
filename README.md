@@ -1,5 +1,5 @@
 # PISS
-- Proxgrammer's
+- Programmer's
 - Inexplicably
 - Shitty
 - System
