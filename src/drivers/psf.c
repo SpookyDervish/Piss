@@ -25,9 +25,9 @@ void putc(char c, struct limine_framebuffer *framebuffer, uint32_t fg, uint32_t 
             const uint8_t current_bitmask = highest_bit >> (x & 7U);
 			
 			// we're resorting to colours bbaabyyyyy
-            fb_ptr[index+x] = default_font->width*default_font->height;//(current_byte & current_bitmask) ? fg : bg;
+            fb_ptr[index+x] = (current_byte & current_bitmask) ? fg : bg;
         }
         glyph += bytesperline;
-        index += framebuffer->pitch;
+        index += framebuffer->width;
     }
 }
