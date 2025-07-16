@@ -3,3 +3,9 @@ obj/src/*
 bin/*
 obj/src/*
 limine/*
+iso_root/*
+iso_root/boot/*
+iso_root/EFI/*
+iso_root/EFI/BOOT/*
+image.hdd
+image.iso
