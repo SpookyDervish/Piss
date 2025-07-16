@@ -11,7 +11,7 @@ void putc(char c, struct limine_framebuffer *framebuffer, uint32_t fg, uint32_t 
 	const uint8_t *glyph = (const uint8_t *)default_font + default_font->headersize +
                            (default_font->bytesperglyph * (ptrdiff_t)c);
 
-	size_t index = (row * default_font->height * framebuffer->pitch) + (col * default_font->width);
+	size_t index = (row * default_font->height * framebuffer->width) + (col * default_font->width);
 	volatile uint32_t *fb_ptr = framebuffer->address;
 
 	uint32_t bytesperline = default_font->width / 8;
@@ -25,7 +25,7 @@ void putc(char c, struct limine_framebuffer *framebuffer, uint32_t fg, uint32_t 
             const uint8_t current_bitmask = highest_bit >> (x & 7U);
 			
 			// we're resorting to colours bbaabyyyyy
-            fb_ptr[index+x] = (current_byte & current_bitmask) ? fg : bg;
+            fb_ptr[index+x] = index+x;//(current_byte & current_bitmask) ? fg : bg;
         }
         glyph += bytesperline;
         index += framebuffer->width;
