@@ -1,16 +1,15 @@
 #pragma once
 #include <stdint.h>
 #include "limine.h"
-#define PSF1_FONT_MAGIC 0x0436
+
+
+#define PSF1_MAGIC 0x3604
 
 typedef struct {
-    uint16_t magic; // Magic bytes for identification.
+    uint8_t magic[2]; // Magic bytes for identification.
     uint8_t fontMode; // PSF font mode.
     uint8_t characterSize; // PSF character size.
 } PSF1_Header;
-
-
-#define PSF_FONT_MAGIC 0x864ab572
 
 struct PSF_font {
     uint32_t magic;         /* magic bytes to identify PSF */

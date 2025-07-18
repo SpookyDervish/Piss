@@ -130,10 +130,6 @@ obj/%.asm.o: %.asm GNUmakefile
 	mkdir -p "$$(dirname $@)"
 	nasm $(NASMFLAGS) $< -o $@
 
-obj/%.psf.o: assets/%.psf
-	mkdir -p "$$(dirname $@)"
-	objcopy -O elf64-x86-64 -B i386 -I binary $< $@
-
 obj/assets/%.psf.o: assets/%.psf
 	mkdir -p "$$(dirname $@)"
 	objcopy -O elf64-x86-64 -B i386 -I binary $< $@
