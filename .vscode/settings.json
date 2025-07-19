@@ -6,6 +6,9 @@
 		"limits.h": "c",
 		"stddef.h": "c",
 		"stdlib.h": "c",
-		"psf.h": "c"
+		"psf.h": "c",
+		"gdt.h": "c",
+		"fb.h": "c",
+		"string.h": "c"
 	}
 }

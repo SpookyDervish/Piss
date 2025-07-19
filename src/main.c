@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <limine.h>
 #include "util/logging.h"
+#include "interrupts/gdt.h"
 
 // quick note about all limine requests:
 // the requests should be defined as volatile to prevent the compiler
@@ -60,10 +61,13 @@ void kmain(void) {
     /*for (size_t i = 0; i < framebuffer->width*framebuffer->height; i++) {
         fb_ptr[i] = i%256;
     }*/
-    struct flanterm_context* ft_ctx = init_console(framebuffer);
+    struct flanterm_context *ft_ctx = init_console(framebuffer);
 
-    const char msg[] = "\033[38;2;255;255;85m░▒▓ PISS - V0.0.0.1 ▓▒░\033[0m\n\033[1m\t- Programmer's\n\t- Inexplicably\n\t- Shitty\n\t- System\033[21m\n\n";
+    const char msg[] = " \033[38;2;255;255;85m░▒▓ PISS - V0.0.0.1 ▓▒░\033[0m\n\033[1m\t - Programmer's\n\t - Inexplicably\n\t - Sh**ty\n\t - System\033[21m\n\n";
     flanterm_write(ft_ctx, msg, sizeof(msg));
+
+    ok("Setting up GDT...", ft_ctx);
+    gdt_install();
 
     // We're done, just hang...
     hcf();
