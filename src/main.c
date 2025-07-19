@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <limine.h>
-#include "drivers/psf.h"
+#include "util/logging.h"
 
 // quick note about all limine requests:
 // the requests should be defined as volatile to prevent the compiler
@@ -55,12 +55,15 @@ void kmain(void) {
 
     // Fetch the first framebuffer.
     struct limine_framebuffer *framebuffer = framebuffer_request.response->framebuffers[0];
+    uint32_t *fb_ptr = framebuffer->address;
     // Note: we assume the framebuffer model is RGB with 32-bit pixels.
     /*for (size_t i = 0; i < framebuffer->width*framebuffer->height; i++) {
-        volatile uint32_t *fb_ptr = framebuffer->address;
         fb_ptr[i] = i%256;
     }*/
-    putc('h', framebuffer, 0xFFFFFF, 0xFFFFFF, 0, 0);
+    struct flanterm_context* ft_ctx = init_console(framebuffer);
+
+    const char msg[] = "Hello, World!\n";
+    flanterm_write(ft_ctx, msg, sizeof(msg));
 
     // We're done, just hang...
     hcf();
