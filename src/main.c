@@ -62,7 +62,7 @@ void kmain(void) {
     }*/
     struct flanterm_context* ft_ctx = init_console(framebuffer);
 
-    const char msg[] = "Hello, World!\n";
+    const char msg[] = "\033[38;2;255;255;85m░▒▓ PISS - V0.0.0.1 ▓▒░\033[0m\n\033[1m\t- Programmer's\n\t- Inexplicably\n\t- Shitty\n\t- System\033[21m\n\n";
     flanterm_write(ft_ctx, msg, sizeof(msg));
 
     // We're done, just hang...
